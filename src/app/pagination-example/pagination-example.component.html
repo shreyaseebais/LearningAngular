@@ -1,0 +1,9 @@
+<p>
+  {{title}}
+</p>
+<ul>
+  <li *ngFor="let item of list1 |paginate:{itemsPerPage:10, currentPage:p}">
+    {{item}}
+  </li>
+</ul>
+<pagination-controls (pageChange)="p =$event"></pagination-controls>
