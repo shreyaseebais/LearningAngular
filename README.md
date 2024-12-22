@@ -34,10 +34,11 @@ c.	Angular more testable.
 d.	Lot of utility code which can be re-used in lot of aplications especially when dealing with user navigation & browser history.
 e.	Angular gives our application a clean  & loosely coupled structure that is easy to understand & maintain.
 
-| Feature | Plain Javascript | Angular|
-| Architecture	             | No predefined structure; relies on custom organization.	| Component-based architecture for scalability and modularity. |
-| Language	                 | JavaScript (dynamically typed).	|TypeScript (statically typed, with type safety). |
-| Data Binding	             | Manual DOM manipulation required.	|Built-in two-way data binding, reducing manual effort.
+| Feature                    | Plain Javascript                                                                | Angular|
+| ---------------------------| --------------------------------------------------------------------------------- | -------------------------------------------------------------------|
+| Architecture	             | No predefined structure; relies on custom organization.	                       | Component-based architecture for scalability and modularity. |
+| Language	                 | JavaScript (dynamically typed).	                                               |TypeScript (statically typed, with type safety). |
+| Data Binding	             | Manual DOM manipulation required.	                                           |Built-in two-way data binding, reducing manual effort.
 | Performance	             | Requires manual optimizations.	|Optimized with features like AOT and change detection.
 | Dependency Management      |	No native dependency injection system.|	Built-in hierarchical dependency injection, simplifying dependency management.
 | Reusability	             | Code reuse requires manual structuring.	|Reusable components encapsulate logic, view, and styles.
