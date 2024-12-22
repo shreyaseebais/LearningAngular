@@ -1,27 +1,35 @@
-# HtmlToPdf
+# Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+### Table of Contents
 
-## Development server
+| No. | Questions |
+| --- | --------- |
+| 1 | [Single page application](#Single-page-application) |
+| 2 | [Angular vs Plain javascript or jquery](#Why-should-you-use-Angular-vs-Plain-javascript-or-jquery) |
+| 3 | [](#) |
+| 4 | [](#) |
+| 5 | [](#) |
+| 6 | [](#) |
+| 7 | [](#) |
+| 8 | [](#) |
+| 9 | [](#) |
+| 10 | [](#) |
+| 11 | [](#) |
+| 12 | [](#) |
+| 13 | [](#) |
+| 14 | [](#) |
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+1. ### Single page application
+•	When you change the sections webpage(Index.html) is same, but only the content is changed. Hence refresh icon in browser will never spin. 
+•	SPA makes  web application faster & gives user a reactive experience.
+•	Using js to change the content of the webpage is dynamically much faster than having to reach out to the server for every page change and for every new piece of data we want to display.
+•	If we need some data from the server we can load It in the background without making the webpage unresponsive.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+2. ### Why should you use Angular vs Plain javascript or jquery
+a.	Vanilla JS or jquery becomes hard to maintain and we will need a way to properly structure our application
+b.	A lot of applications built using vanilla JS & jquery is hard to test.
+c.	Angular more testable
+d.	Lot of utility code which can be re-used in lot of aplications especially when dealing with user navigation & browser history.
+e.	Angular gives our application a clean  & loosely coupled structure that is easy to understand & maintain.
