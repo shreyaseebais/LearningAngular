@@ -56,10 +56,17 @@
 3. ### Lifecycle hooks
 
 **Constructor:**
+Constructor does this
+
 **ngOnChanges:**
+onchanges does this
+
 **ngOnInit:**
+
 **ngOnContentInit:**
+
 **ngOnContentChecked:**
+
 **ngOnDestroy:**
 
 **[⬆ Back to Top](#table-of-contents)**
