@@ -34,4 +34,20 @@ c.	Angular more testable.
 d.	Lot of utility code which can be re-used in lot of aplications especially when dealing with user navigation & browser history.
 e.	Angular gives our application a clean  & loosely coupled structure that is easy to understand & maintain.
 
+| Feature | Plain Javascript | Angular|
+| Architecture	             | No predefined structure; relies on custom organization.	| Component-based architecture for scalability and modularity. |
+| Language	                 | JavaScript (dynamically typed).	|TypeScript (statically typed, with type safety). |
+| Data Binding	             | Manual DOM manipulation required.	|Built-in two-way data binding, reducing manual effort.
+| Performance	             | Requires manual optimizations.	|Optimized with features like AOT and change detection.
+| Dependency Management      |	No native dependency injection system.|	Built-in hierarchical dependency injection, simplifying dependency management.
+| Reusability	             | Code reuse requires manual structuring.	|Reusable components encapsulate logic, view, and styles.
+| Built-in Features          |	No built-in features; requires libraries for routing, forms, and HTTP.|	Offers built-in routing, forms handling, and HTTP client.
+| Scalability	             | Limited scalability; challenging for large projects.|	Designed for enterprise-scale applications with modules and services.
+| Tooling	                 |Limited tooling support.	|Robust tools like Angular CLI for scaffolding, testing, and building.
+| Testing	                 |Requires separate setups for testing frameworks.	| Easy testing with built-in support for unit testing and end-to-end testing.
+| Learning Curve             |	Easier to learn and use for small projects.	Steeper learning curve due to its advanced features.
+| Community and Ecosystem	 | Large community but no cohesive framework. | 	Large ecosystem with regular updates and community support.
+| Suitability	             | Best for small projects or adding interactivity to static sites.	|Ideal for dynamic, scalable, and feature-rich applications.
+
+
 **[⬆ Back to Top](#table-of-contents)**
