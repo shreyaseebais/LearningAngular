@@ -4,7 +4,7 @@
 
 | No. | Questions |
 | --- | --------- |
-| 1 | [Single page application](#Single-page-application) |
+| 1 | [Single page application](#What-is-Single-page-application) |
 | 2 | [Angular vs Plain javascript or jquery](#Why-should-you-use-Angular-vs-Plain-javascript-or-jquery) |
 | 3 | [](#) |
 | 4 | [](#) |
@@ -20,15 +20,16 @@
 | 14 | [](#) |
 
 
-1. ### Single page application
- **SPA:**
- 1. When you change the sections webpage(Index.html) is same, but only the content is changed. Hence refresh icon in browser will never spin. 
+1. ### What is Single page application
+
+1. When you change the sections webpage(Index.html) is same, but only the content is changed. Hence refresh icon in browser will never spin. 
 2. 	SPA makes  web application faster & gives user a reactive experience.
 3. 	Using js to change the content of the webpage is dynamically much faster than having to reach out to the server for every page change and for every new piece of data we want to display.
 4.	If we need some data from the server we can load It in the background without making the webpage unresponsive.
 
 
 2. ### Why should you use Angular vs Plain javascript or jquery
+
 1.  Vanilla JS or jquery becomes hard to maintain and we will need a way to properly structure our application.
 2.	A lot of applications built using vanilla JS & jquery is hard to test.
 3.	Angular more testable.
@@ -51,5 +52,14 @@
 | Community and Ecosystem	 | Large community but no cohesive framework.                                      | Large ecosystem with regular updates and community support.   |
 | Suitability	             | Best for small projects or adding interactivity to static sites.	               | Ideal for dynamic, scalable, and feature-rich applications. |
 
+
+3. ### Lifecycle hooks
+
+**Constructor:**
+**ngOnChanges:**
+**ngOnInit:**
+**ngOnContentInit:**
+**ngOnContentChecked:**
+**ngOnDestroy:**
 
 **[⬆ Back to Top](#table-of-contents)**
