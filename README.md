@@ -20,7 +20,7 @@
 | 14 | [](#) |
 
 
-1. ### What is Single page application
+### 1. What is Single page application
 
 1. When you change the sections webpage(Index.html) is same, but only the content is changed. Hence refresh icon in browser will never spin. 
 2. 	SPA makes  web application faster & gives user a reactive experience.
@@ -28,7 +28,7 @@
 4.	If we need some data from the server we can load It in the background without making the webpage unresponsive.
 
 
-2. ### Why should you use Angular vs Plain javascript or jquery
+### 2. Why should you use Angular vs Plain javascript or jquery
 
 1.  Vanilla JS or jquery becomes hard to maintain and we will need a way to properly structure our application.
 2.	A lot of applications built using vanilla JS & jquery is hard to test.
@@ -53,7 +53,7 @@
 | Suitability	             | Best for small projects or adding interactivity to static sites.	               | Ideal for dynamic, scalable, and feature-rich applications. |
 
 
-3. ### Lifecycle hooks
+### 3. Lifecycle hooks
 
 **Constructor:**
 Constructor does this
@@ -70,3 +70,73 @@ onchanges does this
 **ngOnDestroy:**
 
 **[⬆ Back to Top](#table-of-contents)**
+
+
+
+### 4. @HostListener 
+
+@HostListener is a decorator used to listen to DOM events on the host element of a directive or component. 
+
+Syntax
+```javascript
+@HostListener(eventName: string, args?: string[])
+```
+
+* Listen to a click event 
+
+```javascript
+    import { Directive, HostListener } from '@angular/core';
+
+    @Directive({
+    selector: '[appClickLogger]'
+    })
+    export class ClickLoggerDirective {
+    @HostListener('click', ['$event'])
+    handleClick(event: Event) {
+        console.log('Element clicked:', event);
+    }
+    }
+```
+
+* Handling Window Events
+```javascript
+    import { Component, HostListener } from '@angular/core';
+
+    @Component({
+    selector: 'app-root',
+    template: `<h1>Resize the window to see the effect!</h1>`
+    })
+    export class AppComponent {
+    @HostListener('window:resize', ['$event'])
+    onResize(event: Event) {
+        console.log('Window resized:', (event.target as Window).innerWidth);
+    }
+    }
+
+```
+
+
+### 5. @HostBinding
+
+@HostBinding is a decorator used to bind a property of a directive or component to a property or attribute of its host element. 
+
+Syntax
+```javascript
+    @HostBinding(bindingPropertyName: string)
+```
+
+**bindingPropertyName** is The name of the property, style, class, or attribute on the host element to bind to. Examples include class.someClass, style.backgroundColor, attr.aria-label, or directly id, disabled, etc.
+
+```javascript
+    import { Directive, HostBinding } from '@angular/core';
+
+    @Directive({
+    selector: '[appDynamicHost]'
+    })
+    export class DynamicHostDirective {
+    @HostBinding('class.active') isActive = true;
+    @HostBinding('style.border') border = '1px solid red';
+    @HostBinding('attr.role') role = 'button';
+    }
+
+```
