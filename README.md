@@ -140,3 +140,74 @@ Syntax
     }
 
 ```
+
+
+
+### 6. Dependency Injection (DI) 
+ Dependency Injection (DI) in Angular is a design pattern and a core concept that provides a way to supply dependencies (objects or services) to components, directives, pipes, or other services. Instead of creating dependencies manually, Angular’s DI system automatically resolves and injects them where needed, making the code more modular, reusable, and testable.
+
+ 
+ **How to Use Dependency Injection in Angular**
+
+ * Creating an Injectable Service
+ Use the @Injectable decorator to mark a class as injectable.
+
+    ```typescript
+        import { Injectable } from '@angular/core';
+
+        @Injectable({
+        providedIn: 'root', // Makes the service available application-wide
+        })
+        export class LoggerService {
+        log(message: string) {
+            console.log(message);
+        }
+        }
+    ```
+providedIn: 'root': The service is registered at the root level and is a singleton.
+
+    * Injecting a Service into a Component
+    To use the service, inject it into the constructor of a component or another service.
+
+```typescript
+    import { Component } from '@angular/core';
+    import { LoggerService } from './logger.service';
+
+    @Component({
+    selector: 'app-root',
+    template: `<h1>Check the console for logs!</h1>`,
+    })
+    export class AppComponent {
+    constructor(private logger: LoggerService) {
+        this.logger.log('AppComponent initialized!');
+    }
+    }
+```
+
+Angular automatically provides an instance of LoggerService to the component.
+
+* Hierarchical Dependency Injection
+
+    Angular uses a hierarchical DI system:
+
+    Root Injector: Services provided at the root level (providedIn: 'root') are available throughout the application.
+  
+    Component Injector: Services provided in a component’s providers array are available only to that component and its children.
+    
+Example of component-level provider:
+
+```typescript
+    import { Component } from '@angular/core';
+    import { LoggerService } from './logger.service';
+
+    @Component({
+    selector: 'app-child',
+    template: `<p>Child component</p>`,
+    providers: [LoggerService], // Unique instance for this component and its children
+    })
+    export class ChildComponent {
+    constructor(private logger: LoggerService) {
+        this.logger.log('ChildComponent initialized!');
+    }
+    }
+```
