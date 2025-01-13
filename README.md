@@ -190,9 +190,9 @@ Angular automatically provides an instance of LoggerService to the component.
 
     Angular uses a hierarchical DI system:
 
-    Root Injector: Services provided at the root level (providedIn: 'root') are available throughout the application.
+    * 1. Root Injector: Services provided at the root level (providedIn: 'root') are available throughout the application.
   
-    Component Injector: Services provided in a component’s providers array are available only to that component and its children.
+    * 2. Component Injector: Services provided in a component’s providers array are available only to that component and its children.
     
 Example of component-level provider:
 
