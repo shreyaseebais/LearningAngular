@@ -20,7 +20,12 @@
 | 14 | [](#) |
 
 
-### 1. What is Single page application
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+## What is Single page application
 
 1. When you change the sections webpage(Index.html) is same, but only the content is changed. Hence refresh icon in browser will never spin. 
 2. 	SPA makes  web application faster & gives user a reactive experience.
@@ -28,7 +33,12 @@
 4.	If we need some data from the server we can load It in the background without making the webpage unresponsive.
 
 
-### 2. Why should you use Angular vs Plain javascript or jquery
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+## Why should you use Angular vs Plain javascript or jquery
 
 1.  Vanilla JS or jquery becomes hard to maintain and we will need a way to properly structure our application.
 2.	A lot of applications built using vanilla JS & jquery is hard to test.
@@ -53,7 +63,58 @@
 | Suitability	             | Best for small projects or adding interactivity to static sites.	               | Ideal for dynamic, scalable, and feature-rich applications. |
 
 
-### 3. Lifecycle hooks
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+## Angular Code Flow
+
+*   Application Bootstrapping 
+    * File: src/main.ts
+    * The Angular application is bootstrapped by loading the root module (AppModule).
+    * The function platformBrowserDynamic().bootstrapModule(AppModule) initializes the app.
+
+
+* Module Initialization
+    * File: src/app/app.module.ts
+ Manages the overall application structure by declaring components, importing other modules, and providing services.
+Root component (AppComponent) is defined in the bootstrap array.
+
+
+* Component Loading 
+File: src/app/app.component.ts
+Controls the logic and data binding for a particular part of the UI.
+
+
+* Routing 
+* Purpose: Manages navigation between different views.
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+## Angular Project structure 
+
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
+## Parent to Child @Input decorator 
+
+<div>
+<p align="center">
+    <img src="./images/AtInputProperty.png" alt="Javascript Engine" width="70%">
+</p>
+</div>
+
+
+
+## Lifecycle hooks
 
 **Constructor:**
 Constructor does this
@@ -69,11 +130,15 @@ onchanges does this
 
 **ngOnDestroy:**
 
+
+
+
+
+
+
 **[⬆ Back to Top](#table-of-contents)**
 
-
-
-### 4. @HostListener 
+## @HostListener 
 
 @HostListener is a decorator used to listen to DOM events on the host element of a directive or component. 
 
@@ -116,7 +181,12 @@ Syntax
 ```
 
 
-### 5. @HostBinding
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+## @HostBinding
 
 @HostBinding is a decorator used to bind a property of a directive or component to a property or attribute of its host element. 
 
@@ -143,7 +213,11 @@ Syntax
 
 
 
-### 6. Dependency Injection (DI) 
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+## Dependency Injection (DI) 
  Dependency Injection (DI) in Angular is a design pattern and a core concept that provides a way to supply dependencies (objects or services) to components, directives, pipes, or other services. Instead of creating dependencies manually, Angular’s DI system automatically resolves and injects them where needed, making the code more modular, reusable, and testable.
 
  
@@ -211,3 +285,9 @@ Example of component-level provider:
     }
     }
 ```
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
