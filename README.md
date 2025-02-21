@@ -92,6 +92,9 @@ Controls the logic and data binding for a particular part of the UI.
 * Purpose: Manages navigation between different views.
 
 
+
+
+
 **[⬆ Back to Top](#table-of-contents)**
 
 ## Angular Project structure 
@@ -102,14 +105,6 @@ Controls the logic and data binding for a particular part of the UI.
 
 
 **[⬆ Back to Top](#table-of-contents)**
-
-
-## Parent to Child @Input decorator 
-
-<div>
-<p align="center">
-    <img src="./images/AtInputProperty.png" alt="Javascript Engine" width="70%">
-</p>
 </div>
 
 
@@ -291,3 +286,4 @@ Example of component-level provider:
 
 
 **[⬆ Back to Top](#table-of-contents)**
+
