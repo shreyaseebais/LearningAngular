@@ -287,10 +287,172 @@ Example of component-level provider:
 
 **[⬆ Back to Top](#table-of-contents)**
 
+### What are Pipes? Pure vs Impure pipes?
+A Pipe in Angular is used to transform data in the template.
+✅  Pipes format, filter, or manipulate data before displaying it in the UI.
+✅  They are pure functions, meaning they do not modify the original data.
+
+Eg of Builtin pipes:  uppercase, lowercase, currency, date, json, percent, slice, async.
+
+1️⃣ Pure Pipes
+✅ Default behavior in Angular.
+✅ Runs only when the input changes.
+✅ Best for performance optimization.
+
+```javascript
+    @Pipe({
+    name: 'example',
+    pure: true // Default behavior
+    })
+```
+
+2️⃣ Impure Pipes
+✅ Runs on every change detection cycle (even if input hasn’t changed).
+✅ Useful when working with arrays, objects, or dynamic data.
+✅ Can affect performance negatively if overused.
+
+```javascript
+    @Pipe({
+    name: 'example',
+    pure: false // Runs on every change detection
+    })
+```
+
+'
+
+### HostBinding vs HostListener
+
+*  HostBinding Binds host element properties/attributes. Adding/removing CSS classes, modifying attributes.
+*  HostListener Listens for events on the host element. Handling clicks, mouse events, key events, etc.
+
+```typescript
+    import { Directive, HostBinding, HostListener } from '@angular/core';
+
+    @Directive({
+    selector: '[appHoverHighlight]'
+    })
+    export class HoverHighlightDirective {
+        // Bind the 'highlight' CSS class to this directive
+        @HostBinding('class.highlight') isHighlighted = false;
+
+        // Listen for mouse enter event and apply the class
+        @HostListener('mouseenter') onMouseEnter() {
+            this.isHighlighted = true;
+        }
+
+        // Listen for mouse leave event and remove the class
+        @HostListener('mouseleave') onMouseLeave() {
+            this.isHighlighted = false;
+        }
+    }
+```
+
+### Property Binding vs HostBinding
+
+| Feature                                           |	Property Binding ([property])	                    |   HostBinding (@HostBinding)                          |
+|---------------------------------------------------|-------------------------------------------------------|-------------------------------------------------------|
+| Scope	                                            |   Works in templates (HTML)                           |	Works inside directives/components                  |            
+| Usage                                             |	Binds properties of elements and components         |	Binds properties of the host element                |
+| Best For	                                        | Setting attributes & passing data to child components |	Custom directives that modify their host element    |
+| Syntax	                                        | [property]="value"	                                |   @HostBinding('property')                            |
+
+
+Property Binding
+```typescript
+    @Component({
+    selector: 'app-child',
+    template: `<p>{{ message }}</p>`
+    })
+    
+    export class ChildComponent {
+    @Input() message!: string;
+    
+    }
+```
+
+```html
+    <app-child [message]="'Hello from Parent'"></app-child>
+```
+
+Host Binding
+
+```typescript
+
+    import { Directive, HostBinding, Input } from '@angular/core';
+
+    @Directive({
+    selector: '[appHighlight]'
+    })
+    export class HighlightDirective {
+    @Input() isActive = false;
+
+    @HostBinding('class.active') get applyClass() {
+        return this.isActive;
+    }
+    }
+
+```
+
+```html
+    <p appHighlight [isActive]="true">This is highlighted</p>
+```
+
+
+### What is Conditional Attribute Directive ?
+
+ConditionalAttrDirective.js
+```typescript
+    import { Directive, ElementRef, Input, Renderer2, OnChanges } from '@angular/core';
+
+    @Directive({
+    selector: '[appConditionalAttr]'
+    })
+    export class ConditionalAttrDirective implements OnChanges {
+    @Input() appConditionalAttr: boolean = false;
+    @Input() attributeName: string = '';
+
+    constructor(private el: ElementRef, private renderer: Renderer2) {}
+
+    ngOnChanges() {
+        if (this.appConditionalAttr) {
+        this.renderer.setAttribute(this.el.nativeElement, this.attributeName, '');
+        } else {
+        this.renderer.removeAttribute(this.el.nativeElement, this.attributeName);
+        }
+    }
+    }
+```
+
+component.html
+```html
+    <button [appConditionalAttr]="isDisabled" attributeName="disabled">Click Me</button>
+```
+
+component.ts
+```typescript
+    isDisabled = true; // Change dynamically
+```
+
+
+### What is Renderer2 in Angular?
+
+Renderer2 is an Angular service used to safely manipulate the DOM without directly accessing it. 
+This is important for security and cross-platform compatibility (e.g., when using Angular with SSR or Web Workers).
+
+Why Use Renderer2 Instead of Direct DOM Manipulation?
+✅ Security: Prevents direct manipulation of the DOM, reducing security risks like XSS.
+✅ Cross-platform Support: Works in SSR (Server-Side Rendering) and Web Workers, where document is unavailable.
+✅ Encapsulation: Ensures Angular optimally handles DOM updates.
+
+For eg.
+✅ Instead of: this.el.nativeElement.style.backgroundColor = 'yellow';
+✅ We use: this.renderer.setStyle(...) (Safer & more Angular-friendly).
 
 
 
-Q1: What is Routing Guard in Angular?  
+Q1:   What is Routing Guard in Angular?  
+Q1b:  How will you do Role Based Login Authentication? 
+Q :   Eager loading vs Lazy loading? 
 Q2:   What is a Module, and what does it contain? 
 Q3:   How would you run unit test?  
 Q4:   What is a Service, and when will you use it?
