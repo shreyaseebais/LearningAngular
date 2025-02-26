@@ -133,85 +133,6 @@ onchanges does this
 
 **[⬆ Back to Top](#table-of-contents)**
 
-## @HostListener 
-
-@HostListener is a decorator used to listen to DOM events on the host element of a directive or component. 
-
-Syntax
-```javascript
-@HostListener(eventName: string, args?: string[])
-```
-
-* Listen to a click event 
-
-```javascript
-    import { Directive, HostListener } from '@angular/core';
-
-    @Directive({
-    selector: '[appClickLogger]'
-    })
-    export class ClickLoggerDirective {
-    @HostListener('click', ['$event'])
-    handleClick(event: Event) {
-        console.log('Element clicked:', event);
-    }
-    }
-```
-
-* Handling Window Events
-```javascript
-    import { Component, HostListener } from '@angular/core';
-
-    @Component({
-    selector: 'app-root',
-    template: `<h1>Resize the window to see the effect!</h1>`
-    })
-    export class AppComponent {
-    @HostListener('window:resize', ['$event'])
-    onResize(event: Event) {
-        console.log('Window resized:', (event.target as Window).innerWidth);
-    }
-    }
-
-```
-
-
-
-
-
-**[⬆ Back to Top](#table-of-contents)**
-
-## @HostBinding
-
-@HostBinding is a decorator used to bind a property of a directive or component to a property or attribute of its host element. 
-
-Syntax
-```javascript
-    @HostBinding(bindingPropertyName: string)
-```
-
-**bindingPropertyName** is The name of the property, style, class, or attribute on the host element to bind to. Examples include class.someClass, style.backgroundColor, attr.aria-label, or directly id, disabled, etc.
-
-```javascript
-    import { Directive, HostBinding } from '@angular/core';
-
-    @Directive({
-    selector: '[appDynamicHost]'
-    })
-    export class DynamicHostDirective {
-    @HostBinding('class.active') isActive = true;
-    @HostBinding('style.border') border = '1px solid red';
-    @HostBinding('attr.role') role = 'button';
-    }
-
-```
-
-
-
-
-
-**[⬆ Back to Top](#table-of-contents)**
-
 ## Dependency Injection (DI) 
  Dependency Injection (DI) in Angular is a design pattern and a core concept that provides a way to supply dependencies (objects or services) to components, directives, pipes, or other services. Instead of creating dependencies manually, Angular’s DI system automatically resolves and injects them where needed, making the code more modular, reusable, and testable.
 
@@ -289,15 +210,15 @@ Example of component-level provider:
 
 ### What are Pipes? Pure vs Impure pipes?
 A Pipe in Angular is used to transform data in the template.
-✅  Pipes format, filter, or manipulate data before displaying it in the UI.
-✅  They are pure functions, meaning they do not modify the original data.
+*  Pipes format, filter, or manipulate data before displaying it in the UI.
+*  They are pure functions, meaning they do not modify the original data.
 
 Eg of Builtin pipes:  uppercase, lowercase, currency, date, json, percent, slice, async.
 
 1️⃣ Pure Pipes
-✅ Default behavior in Angular.
-✅ Runs only when the input changes.
-✅ Best for performance optimization.
+* Default behavior in Angular.
+* Runs only when the input changes.
+* Best for performance optimization.
 
 ```javascript
     @Pipe({
@@ -307,9 +228,9 @@ Eg of Builtin pipes:  uppercase, lowercase, currency, date, json, percent, slice
 ```
 
 2️⃣ Impure Pipes
-✅ Runs on every change detection cycle (even if input hasn’t changed).
-✅ Useful when working with arrays, objects, or dynamic data.
-✅ Can affect performance negatively if overused.
+* Runs on every change detection cycle (even if input hasn’t changed).
+* Useful when working with arrays, objects, or dynamic data.
+* Can affect performance negatively if overused.
 
 ```javascript
     @Pipe({
@@ -318,7 +239,10 @@ Eg of Builtin pipes:  uppercase, lowercase, currency, date, json, percent, slice
     })
 ```
 
-'
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ### HostBinding vs HostListener
 
@@ -346,6 +270,11 @@ Eg of Builtin pipes:  uppercase, lowercase, currency, date, json, percent, slice
         }
     }
 ```
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
 
 ### Property Binding vs HostBinding
 
@@ -398,6 +327,10 @@ Host Binding
 ```
 
 
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
 ### What is Conditional Attribute Directive ?
 
 ConditionalAttrDirective.js
@@ -434,21 +367,29 @@ component.ts
 ```
 
 
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
 ### What is Renderer2 in Angular?
 
 Renderer2 is an Angular service used to safely manipulate the DOM without directly accessing it. 
 This is important for security and cross-platform compatibility (e.g., when using Angular with SSR or Web Workers).
 
 Why Use Renderer2 Instead of Direct DOM Manipulation?
-✅ Security: Prevents direct manipulation of the DOM, reducing security risks like XSS.
-✅ Cross-platform Support: Works in SSR (Server-Side Rendering) and Web Workers, where document is unavailable.
-✅ Encapsulation: Ensures Angular optimally handles DOM updates.
+* Security: Prevents direct manipulation of the DOM, reducing security risks like XSS.
+* Cross-platform Support: Works in SSR (Server-Side Rendering) and Web Workers, where document is unavailable.
+* Encapsulation: Ensures Angular optimally handles DOM updates.
 
 For eg.
-✅ Instead of: this.el.nativeElement.style.backgroundColor = 'yellow';
-✅ We use: this.renderer.setStyle(...) (Safer & more Angular-friendly).
+* Instead of: this.el.nativeElement.style.backgroundColor = 'yellow';
+* We use: this.renderer.setStyle(...) (Safer & more Angular-friendly).
 
 
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
 
 Q1:   What is Routing Guard in Angular?  
 Q1b:  How will you do Role Based Login Authentication? 
