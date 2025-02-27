@@ -78,8 +78,9 @@
 
 
 * Module Initialization
-    * File: src/app/app.module.ts
- Manages the overall application structure by declaring components, importing other modules, and providing services.
+File: src/app/app.module.ts
+
+Manages the overall application structure by declaring components, importing other modules, and providing services.
 Root component (AppComponent) is defined in the bootstrap array.
 
 
@@ -89,24 +90,9 @@ Controls the logic and data binding for a particular part of the UI.
 
 
 * Routing 
-* Purpose: Manages navigation between different views.
+Purpose: Manages navigation between different views.
 
 
-+------------------------------------------------+
-|                    AppModule                   |
-+------------------------------------------------+
-| +--------------------+   +-------------------+ |
-| |  AppComponent      |   | Feature Modules   | |
-| |  - Header         |   | - UserModule      | |
-| |  - Footer         |   | - ProductModule   | |
-| |  - Sidebar        |   | - SharedModule    | |
-| +--------------------+   +-------------------+ |
-| +--------------------+   +-------------------+ |
-| |  Services (DI)     |   |  RouterModule     | |
-| |  - UserService    |   |  HttpClientModule | |
-| |  - AuthService    |   |  FormsModule      | |
-| +--------------------+   +-------------------+ |
-+------------------------------------------------+
 
 
 
