@@ -92,6 +92,21 @@ Controls the logic and data binding for a particular part of the UI.
 * Purpose: Manages navigation between different views.
 
 
++------------------------------------------------+
+|                    AppModule                   |
++------------------------------------------------+
+| +--------------------+   +-------------------+ |
+| |  AppComponent      |   | Feature Modules   | |
+| |  - Header         |   | - UserModule      | |
+| |  - Footer         |   | - ProductModule   | |
+| |  - Sidebar        |   | - SharedModule    | |
+| +--------------------+   +-------------------+ |
+| +--------------------+   +-------------------+ |
+| |  Services (DI)     |   |  RouterModule     | |
+| |  - UserService    |   |  HttpClientModule | |
+| |  - AuthService    |   |  FormsModule      | |
+| +--------------------+   +-------------------+ |
++------------------------------------------------+
 
 
 
@@ -390,6 +405,576 @@ For eg.
 
 
 **[⬆ Back to Top](#table-of-contents)**
+
+### Custom Style Directives in Angular
+A custom style directive in Angular allows you to dynamically modify the appearance of elements using HostBinding, HostListener, and Renderer2. 
+
+Eg.
+
+shadow-effect.directive.ts
+
+```typescript
+    import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
+
+    @Directive({
+    selector: '[appShadowEffect]'
+    })
+    export class ShadowEffectDirective {
+    constructor(private el: ElementRef, private renderer: Renderer2) {}
+
+    @HostListener('mouseenter') onMouseEnter() {
+        this.renderer.setStyle(this.el.nativeElement, 'boxShadow', '4px 4px 10px rgba(0, 0, 0, 0.2)');
+    }
+
+    @HostListener('mouseleave') onMouseLeave() {
+        this.renderer.setStyle(this.el.nativeElement, 'boxShadow', 'none');
+    }
+    }
+```
+
+```html
+    <div appShadowEffect style="padding: 20px; border: 1px solid #ccc;">
+    Hover over me to see a shadow!
+    </div>
+```
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### Structure Directive
+
+*ngIf , *ngFor, *ngSwitch are few inbuilt structural directives. 
+Apart from them we can also create Custom Structural Directives.
+
+
+Eg. permission.directive.ts
+
+```typescript
+    import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+    @Directive({
+    selector: '[appPermission]'
+    })
+
+    export class PermissionDirective {
+    private currentUserRole: string = 'admin'; // Assume a user role (can be fetched from a service)
+
+    constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
+
+    @Input() set appPermission(allowedRoles: string[]) {
+            if (allowedRoles.includes(this.currentUserRole)) {
+            this.viewContainer.createEmbeddedView(this.templateRef); // Show content
+            } else {
+            this.viewContainer.clear(); // Hide content
+            }
+        }
+    }
+
+```
+
+```html
+    <p *appPermission="['admin', 'moderator']">Only admins & moderators can see this!</p>
+```
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### ViewEncapsulation
+
+|               Encapsulation Type          |	Behavior                                            |
+|-------------------------------------------|-------------------------------------------------------|
+|               Emulated (Default)	        | Scopes styles using unique attributes (_ngcontent)    |
+|               ShadowDom	                | Uses real Shadow DOM, preventing style leakage        |
+|               None	                    | Styles are global and affect the entire app           |
+
+ ViewEncapsulation in Angular controls how component styles are applied to the DOM.
+🔹 It determines whether styles are global or scoped to a specific component.
+🔹 Angular provides three encapsulation modes:
+
+
+*   Emulated (Default)
+*   Shadow DOM
+*   None (Global styles)
+
+
+1. Emulated (Default)
+✅ Angular scopes the styles to the component by adding unique attribute selectors.
+✅ Uses regular CSS, but applies it as if it were scoped.
+✅ Styles are only applied within this component.
+✅ Prevents styles from leaking into other components.
+
+```html
+    <h2 _ngcontent-xyz> Hello World </h2>
+    <style>
+    h2[_ngcontent-xyz] { color: red; }
+    </style>
+```
+
+
+2. Shadow DOM (ViewEncapsulation.ShadowDom)
+✅ Uses native Shadow DOM to scope styles to the component.
+✅ Styles do not affect other components.
+✅ Works only in browsers that support Shadow DOM.
+The component is rendered inside a Shadow DOM boundary:
+```html
+    <app-example>
+    #shadow-root
+        <h2>Hello World</h2>
+        <style>
+        h2 { color: blue; }
+        </style>
+    </app-example>
+```
+✅ Styles are completely isolated and do not leak out.
+✅ Components outside cannot override these styles.
+
+
+3. None (ViewEncapsulation.None)
+✅ Styles are global and affect all components.
+✅ No encapsulation—styles apply to everything in the app.
+✅ The styles are placed globally in the <head> of the document:
+❌ Danger: Styles may override other components unintentionally.
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### What are Services?
+🔹 Services are singleton objects in Angular that encapsulate business logic, data retrieval, and shared functionalities.
+🔹 We use them to maintain code modularity, improve performance, and facilitate data sharing across components.
+
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### What are the different ways to provide a service in Angular?
+There are three ways to provide a service:
+
+* Global (Root Level) – providedIn: 'root' (Recommended)
+* Module Level – Inside the providers[] array in @NgModule
+* Component Level – Inside the providers[] array in @Component
+
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### Explain Dependency Injection (DI) in Angular Services.
+🔹 Dependency Injection (DI) is a design pattern in which dependencies (services) are injected into components rather than being created manually.
+🔹 This makes the application more scalable, testable, and maintainable.
+
+
+Example of Constructor-Based Injection:
+
+ ```typescript
+    constructor(private myService: MyService) {}
+ ```
+
+
+Example of injecting a service into another service
+
+```typescript
+    @Injectable({ providedIn: 'root' })
+    export class AuthService {
+    constructor(private apiService: ApiService) { }
+    }
+```
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### What is the difference between providedIn: 'root' and providedIn: 'any'?
+|               Option                      |                       	Behavior                                            |
+|-------------------------------------------|-------------------------------------------------------------------------------|
+|   providedIn: 'root'                      |	Service is singleton and available globally.                                |
+|   providedIn: 'any'	                    |   Creates separate instances for different modules (eager/lazy-loaded).       |
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### Hierarchical Dependency Injection
+
+Hierarchical Dependency Injection (DI) in Angular is a design pattern that allows services to be provided and managed at different levels of the component tree, creating a hierarchy of injectors. This approach optimizes memory usage, ensures better encapsulation, and improves performance.
+
+*   Root Level (@Injectable({ providedIn: 'root' }))
+
+The service is available throughout the application.
+A single instance is shared across all components.
+```typescript
+    @Injectable({ providedIn: 'root' })
+    export class GlobalService {
+    constructor() {
+        console.log('GlobalService instance created');
+    }
+    }
+
+```
+
+
+*  Module Level (providers in @NgModule)
+
+When a service is provided inside an Angular module (e.g., AppModule or FeatureModule), it creates a separate instance for that module.
+
+```typescript
+    @NgModule({
+    providers: [ModuleService]
+    })
+    export class FeatureModule { }
+```
+
+
+* Component Level (providers in @Component)
+
+A new instance is created for each component and its children.
+If a service is provided at the component level, it will not share the same instance with other components.
+
+```typescript
+    @Component({
+    selector: 'app-child',
+    template: `<p>Child works!</p>`,
+    providers: [ChildService] // New instance for each component
+    })
+    export class ChildComponent {
+    constructor(private childService: ChildService) {}
+    }
+
+```
+✅ Providing services at the root level (providedIn: 'root') is the most common and efficient approach unless a separate instance is required.
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### How Dependency Resolution Works?
+Angular follows a hierarchical structure when resolving dependencies:
+
+1. It starts searching in the component injector.
+2. If the service is not found, it moves up to the module injector.
+3. If still not found, it moves up to the root injector.
+4. If the service is unavailable at all levels, Angular throws an error.
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### How can you share data between components using a service?
+
+```typescript
+    import { Injectable } from '@angular/core';
+    import { BehaviorSubject } from 'rxjs';
+
+    @Injectable({ providedIn: 'root' })
+    export class DataService {
+    private messageSource = new BehaviorSubject<string>('Initial Message');
+    currentMessage = this.messageSource.asObservable();
+
+    changeMessage(message: string) {
+        this.messageSource.next(message);
+    }
+    }
+```
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### What is a Singleton Service in Angular?
+A singleton service in Angular is a service that has only one instance throughout the entire application lifecycle. 
+This means that all components and modules share the same instance of the service, 
+which helps in managing global data, state, or logic efficiently.
+
+
+### How to Create a Singleton Service?
+
+1. Using providedIn: 'root' (Recommended)
+
+This is the most common way to create a singleton service in Angular. 
+By setting providedIn: 'root', Angular ensures that a single instance is created and shared across the app.
+```typescript
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root' // Singleton service
+})
+export class SingletonService {
+  private data: string = '';
+
+  setData(value: string) {
+    this.data = value;
+  }
+
+  getData(): string {
+    return this.data;
+  }
+}
+```
+
+2. Providing in AppModule (Alternative)
+Another way to create a singleton service is by adding it to the providers array in AppModule.
+
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { SingletonService } from './singleton.service';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  providers: [SingletonService], // Singleton instance for the entire app
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
+
+
+### Angular injection token
+
+In Angular, an injection token is a unique identifier used for dependency injection,
+allowing you to inject values that are not classes, such as interfaces, configurations, 
+or primitive types.Since interfaces are not present at runtime in TypeScript, 
+Angular cannot use them as type tokens. 
+Instead, you create an InjectionToken object to serve as the token for dependency injection.
+
+
+api-url.token
+```typescript
+    import { InjectionToken } from '@angular/core';
+
+    export const API_URL = new InjectionToken<string>('API_URL');
+```
+
+
+Module.ts
+```typescript
+    import { NgModule } from '@angular/core';
+    import { BrowserModule } from '@angular/platform-browser';
+    import { AppComponent } from './app.component';
+    import { API_URL } from './api-url.token';
+
+    @NgModule({
+    declarations: [AppComponent],
+    imports: [BrowserModule],
+    providers: [{ provide: API_URL, useValue: 'https://api.example.com' }],
+    bootstrap: [AppComponent],
+    })
+    export class AppModule {}
+```
+
+component.ts
+```typescript
+    import { Component, Inject } from '@angular/core';
+    import { API_URL } from './api-url.token';
+
+    @Component({
+    selector: 'app-root',
+    template: '<h1>Welcome to Angular!</h1>',
+    })
+    export class AppComponent {
+    constructor(@Inject(API_URL) private apiUrl: string) {
+        console.log('API URL:', this.apiUrl);
+    }
+    }
+```
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### How would you handle API calls inside a service?
+
+```typescript
+    import { HttpClient } from '@angular/common/http';
+    import { Observable } from 'rxjs';
+
+    @Injectable({ providedIn: 'root' })
+    export class ApiService {
+    private apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+
+    constructor(private http: HttpClient) {}
+
+    getPosts(): Observable<any[]> {
+        return this.http.get<any[]>(this.apiUrl);
+    }
+    }
+
+```
+*  Use RxJS catchError to handle API failures.
+```typescript
+    getPosts(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl).pipe(
+        catchError(error => {
+        console.error('Error:', error);
+        return throwError(() => new Error('Something went wrong!'));
+        })
+    );
+    }
+```
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+###  ViewProviders vs. Providers
+
+* providers: The service is available to the component and its children.
+* viewProviders: The service is available only inside the component’s view.
+
+```typescript
+    @Component({
+    selector: 'app-example',
+    templateUrl: './example.component.html',
+    providers: [SomeService],
+    viewProviders: [OtherService]
+    })
+    export class ExampleComponent { }
+```
+
+### Multi-Providers
+
+When multiple providers are needed for the same token, use multi: true.
+
+```typescript
+const Logger1 = { log: () => console.log('Logger 1') };
+const Logger2 = { log: () => console.log('Logger 2') };
+
+providers: [
+  { provide: 'LOGGER', useValue: Logger1, multi: true },
+  { provide: 'LOGGER', useValue: Logger2, multi: true }
+]
+```
+
+
+
+
+### What are the key differences between Observables and Promises in JavaScript?
+
+**Multiple vs. Single Values:**
+Observables can emit multiple values over time, 
+making them suitable for handling streams of data such as user inputs or WebSocket messages.
+In contrast, Promises are designed to handle a single asynchronous event.​
+
+**Lazy vs. Eager Execution:**
+Observables are lazy; they don't execute until a subscription is made, 
+allowing for the setup of the execution context at the time of subscription. 
+Promises execute immediately upon creation.​
+
+**Cancellability:** 
+Subscriptions to Observables can be unsubscribed, effectively canceling the data stream.
+Promises, once initiated, cannot be canceled.​
+
+**Operators and Functional Composition:** 
+Observables come with a rich set of operators that enable complex data manipulation and composition, 
+promoting a functional programming style. 
+Promises lack this capability.
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
+### Can you explain the difference between mergeMap, switchMap, and concatMap operators in RxJS?
+
+**mergeMap:** 
+Projects each source value to an Observable and merges multiple inner Observables concurrently.
+
+**switchMap:**
+Projects each source value to an Observable, 
+but unsubscribes from the previous inner Observable when a new value is emitted. 
+
+**concatMap:**
+Projects each source value to an Observable and subscribes to them one at a time, 
+waiting for each to complete before moving to the next. 
+
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### Why use BehaviorSubject instead of Subject?
+
+BehaviorSubject retains the last emitted value, while Subject does not.
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### What are some best practices for optimizing performance when using RxJS in large-scale applications?
+
+**Unsubscription Management:** 
+Always unsubscribe from Observables to prevent memory leaks, especially in Angular components. 
+Utilize operators like takeUntil or the AsyncPipe in templates.​
+
+**Avoid Nested Subscriptions:** 
+Instead of nesting subscriptions, use higher-order mapping operators (mergeMap, switchMap) 
+to handle dependent asynchronous operations.​
+
+**Utilize Schedulers:** 
+Schedulers control the execution context of Observables. 
+For performance-critical applications, 
+choosing the appropriate scheduler (e.g., asyncScheduler, queueScheduler) 
+can optimize execution.​
+
+**Debounce and Throttle:** 
+Use debounceTime or throttleTime operators to limit the rate of emissions, 
+which is particularly useful for handling rapid user inputs or events.​
+
+**Error Handling:** 
+Implement comprehensive error handling to ensure that Observables fail gracefully without disrupting the entire stream.
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### xyz
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### xyz
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### xyz
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### xyz
+
 
 Q1:   What is Routing Guard in Angular?  
 Q1b:  How will you do Role Based Login Authentication? 
