@@ -35,6 +35,113 @@ Generate a list of the top 20 interview questions for a Solution Architect role 
 
 **[⬆ Back to Top](#table-of-contents)**
 
+### When to Choose Angular Over React?
+✅ Enterprise-level applications
+✅ Large-scale projects with multiple teams
+✅ Highly structured applications (finance, healthcare, banking)
+✅ Apps requiring robust form handling and validation
+✅ Long-term maintainability with strict typing
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### When to Choose React Over Angular?
+✅ Lightweight, fast, and flexible UI applications
+✅ Single-page apps (SPA) with frequent updates
+✅ Projects needing high customization and component reusability
+✅ Developers prefer minimal setup and manual control
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+### Benefits of using Angluar over ReactJS  ?
+
+1. Full-Fledged Framework (Batteries Included)
+Angular is a complete framework with built-in solutions like:
+* Routing (@angular/router)
+* State management (@ngrx/store or services)
+* HTTP client (@angular/common/http)
+* Form handling (ReactiveFormsModule, FormsModule)
+* Dependency injection
+
+In contrast, React is a library and requires 
+* third-party packages for routing (react-router), state management (Redux, Zustand), and HTTP (Axios).
+
+
+2. Strong TypeScript Support
+Angular is TypeScript-first, which provides:
+* Better tooling & autocompletion
+* Strict type checking
+* Easier maintainability in large projects
+
+React can use TypeScript, but it’s optional and not as deeply integrated.
+
+
+3. Structured and Opinionated Architecture
+Angular enforces a well-structured architecture:
+* Uses modules (NgModules), components, and services.
+* Provides clear separation of concerns.
+* Good for large-scale enterprise apps.
+
+React is flexible but unopinionated, 
+meaning developers must decide on architecture, which can lead to inconsistency in large teams.
+
+
+4. Two-Way Data Binding
+Angular supports two-way data binding, meaning the UI updates automatically when the model changes.
+
+React primarily uses one-way data binding, requiring manual state updates via useState or Redux.
+
+
+5. Dependency Injection (DI)
+Angular has a built-in DI system, which:
+* Improves testability
+* Simplifies service management
+* Enhances modularity
+
+React lacks a built-in DI system and relies on Context API or third-party solutions for dependency injection.
+
+
+6. Better for Enterprise and Large-Scale Applications
+Angular is used in enterprise apps because of:
+* Scalability & maintainability
+* Standardized structure
+* Long-term support (LTS) by Google
+
+React is better suited for small to mid-sized apps but requires more setup for enterprise use.
+
+7. Built-in Performance Optimizations
+* Ahead-of-Time (AOT) Compilation: Angular compiles templates at build time, reducing runtime processing.
+* Lazy Loading: Modules can be loaded only when needed, improving performance.
+Optimized Change Detection: Uses Zones for efficient updates.
+
+
+React relies on:
+
+* Virtual DOM for reconciliation.
+* Manual optimizations using useMemo, useCallback, and React.memo.
+
+8. CLI for Productivity
+Angular CLI (ng) automates:
+* Project setup (ng new)
+* Component generation (ng generate component)
+* Code linting and testing (ng lint, ng test)
+* Builds and optimizations (ng build --prod)
+
+React developers often use Create React App (CRA), Vite, or Next.js, 
+but they lack the same level of integrated tooling as Angular CLI.
+
+9. Native Mobile & PWA Support
+Angular provides PWA support out of the box (@angular/pwa).
+Ionic Framework enables native mobile app development using Angular.
+
+React needs React Native for mobile apps, but Ionic with Angular provides better native-like performance.
+
+
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
 ### owasp, CQRS, Cao, CAP
 Concept	Key Idea
 OWASP:	Security best practices for web applications (Top 10 vulnerabilities).
@@ -182,6 +289,60 @@ app.use(helmet());
 2. Validate input with Joi, Zod, or express-validator
 3. Use bcrypt for password hashing
 4. Implement rate limiting to prevent abuse
+
+
+**[⬆ Back to Top](#table-of-contents)**
+
+
+### Redis Caching
+Redis (Remote Dictionary Server) is an in-memory key-value store used for caching, session management, and real-time data processing.
+
+#### How Redis Caching Works?
+* A request comes in → Check Redis cache
+* If data exists in Redis → Serve it immediately ✅
+* If not in cache, fetch from DB, store it in Redis, and return it ❌
+
+Example (Node.js + Redis)
+
+```javascript
+const redis = require('redis');
+const client = redis.createClient();
+
+app.get('/user/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    // Check Redis cache
+    client.get(userId, async (err, cachedData) => {
+        if (cachedData) {
+            return res.json(JSON.parse(cachedData)); // Return cached response
+        }
+
+        // If not in cache, fetch from database
+        const user = await getUserFromDatabase(userId);
+
+        // Store in Redis with expiration time (1 hour)
+        client.setex(userId, 3600, JSON.stringify(user));
+
+        res.json(user);
+    });
+});
+```
+
+✅ Speeds up API responses
+✅ Reduces database queries
+✅ Improves scalability
+
+
+### How would you deploy a React/Angular and Node.js application on AWS?
+I would follow a CI/CD approach:
+
+1. Frontend: Deploy Angular/React on AWS S3 + CloudFront.
+2. Backend: Deploy Node.js on AWS ECS (Fargate) or Lambda (serverless).
+3. Database: Use AWS RDS (PostgreSQL) and DynamoDB for NoSQL.
+4. CI/CD: GitHub Actions + AWS CodePipeline.
+
+
+
 
 
 **[⬆ Back to Top](#table-of-contents)**
